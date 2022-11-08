@@ -1,0 +1,23 @@
+function myFunction(){
+  let sheet =SpreadsheetApp.getActiveSheet();
+  let data = sheet.getDataRange().getValues();
+
+  for(let x =1; x < data.length; x++){
+
+    let total = data[x][3];
+    let plus = data[x][7];
+    let minus = data[x][8];
+
+    if(plus && !isNaN(plus)){
+      sheet.getRange(x + 1, 4).setValue(total + plus);
+      sheet.getRange(x + 1, 8).clearContent();
+      
+    } else if (minus && !isNaN(minus)){
+      sheet.getRange(x + 1, 4).setValue(total - minus);
+      sheet.getRange(x + 1, 9).clearContent();
+    } else if(isNaN(plus) || isNaN(minus)){
+      SpreadsheetApp.getActiveSpreadsheet().toast("Must enter a number!");
+    }
+
+  }
+}
